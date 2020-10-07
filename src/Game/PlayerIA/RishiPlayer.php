@@ -20,7 +20,7 @@ class RishiPlayer extends Player
     {
         $nbRound = $this->result->getNbRound();
         if ($nbRound == 0)
-            return parent::paperChoice();
+            return parent::scissorsChoice();
 
         $mylastscore = $this->result->getLastScoreFor($this->mySide);
         $opponentlastscore = $this->result->getLastScoreFor($this->opponentSide);
