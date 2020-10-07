@@ -18,12 +18,38 @@ class RishiPlayer extends Player
 
     public function getChoice()
     {
-        $mylast = $this->result->getLastChoiceFor($this->mySide);
-        if ($mylast == 'rock')
+        $nbRound = $this->result->getNbRound();
+        if ($nbRound == 0)
             return parent::paperChoice();
-        elseif ($mylast == 'paper')
-            return parent::scissorsChoice();
-        else
+
+        $mylastscore = $this->result->getLastScoreFor($this->mySide);
+        $opponentlastscore = $this->result->getLastScoreFor($this->opponentSide);
+        $mylastaction = $this->result->getLastChoiceFor($this->mySide);
+        $opponentlastaction = $this->result->getLastChoiceFor($this->mySide);
+
+        //i won
+        if ($mylastscore == $opponentlastscore) {
+            if ($mylastaction == 'rock')
+                return parent::paperChoice();
+            elseif ($mylastaction == 'paper')
+                return parent::scissorsChoice();
             return parent::rockChoice();
+        }
+        //ex equo
+        elseif ($mylastscore > $opponentlastscore) {
+            if ($mylastaction == 'rock')
+                return parent::scissorsChoice();
+            elseif ($mylastaction == 'paper')
+                return parent::rockChoice();
+            return $this->paperChoice();
+        }
+        //i lost
+        else {
+            return $opponentlastaction;
+        }
+       // $otherlast = $this->result->getLastChoiceFor($this->opponentSide);
+
+        //$otherstats = $this->result->getStatsFor($this->opponentSide);
+        //print_r($otherstats);
     }
 };
