@@ -12,11 +12,10 @@ use function Sodium\library_version_major;
  * @description Selon les statistiques, le choix de commencer par pierre est plus fréquent. Sachant cela, des étudiants
  * voudront commencer par papier. Donc je commence par sciseaux.
  * Le reste de la fonction est découpée en trois parties (sans compter la déclaration des variables).
- * Dans le cas où nous sommes ex acqueo (en 1er), je lance l'action qui aurait gagné contre l'action faite par les deux joueurs
- * Dans le deuxième cas (quand j'ai gagné) : les joueurs ont tendance à vouloir faire l'action qui gagnerait sur celle
- * qui vient de gagner. Je joue l'action qui gagne contre celle-ci.
- * Dans le dernier cas (où je perds), je joue l'action qui gagne contre celle la plus jouée chez l'adversaire si elle se distingue
- * sinon
+ * Egalité : je joue l'action qui gagne sur celle que les deux joueurs viennent de faire
+ * Je gagne : je joue l'action qui gagne sur l'action qui gagne sur celle qui m'a permis de gagner
+ * Je perds : si une action est jouée plus souvent que les deux autres par l'adversaire, je joue celle qui l'a contre
+ * Sinon : voire cas où je gagne
  */
 class RishiPlayer extends Player
 {
