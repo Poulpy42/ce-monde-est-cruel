@@ -27,14 +27,14 @@ class RishiPlayer extends Player
         $mylastaction = $this->result->getLastChoiceFor($this->mySide);
         $opponentlastaction = $this->result->getLastChoiceFor($this->mySide);
 
-        if ($mylastscore == $opponentlastscore) {
+        if ($mylastscore > $opponentlastscore) {
             if ($mylastaction == 'rock')
                 return parent::paperChoice();
             elseif ($mylastaction == 'paper')
                 return parent::scissorsChoice();
             return parent::rockChoice();
         }
-        elseif ($mylastscore > $opponentlastscore) {
+        elseif ($mylastscore == $opponentlastscore) {
             if ($mylastaction == 'rock')
                 return parent::scissorsChoice();
             elseif ($mylastaction == 'paper')
