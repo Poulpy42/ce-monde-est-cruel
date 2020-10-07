@@ -8,7 +8,15 @@ use function Sodium\library_version_major;
 /**
  * Class RishiPlayers
  * @package Hackathon\PlayerIA
- * @author DELDUC Louise
+ * @author Louise DELDUC
+ * @description Selon les statistiques, le choix de commencer par pierre est plus fréquent. Sachant cela, des étudiants
+ * voudront commencer par papier. Donc je commence par sciseaux.
+ * Le reste de la fonction est découpée en trois parties (sans compter la déclaration des variables).
+ * Dans le cas où nous sommes ex acqueo (en 1er), je lance l'action qui aurait gagné contre l'action faite par les deux joueurs
+ * Dans le deuxième cas (quand j'ai gagné) : les joueurs ont tendance à vouloir faire l'action qui gagnerait sur celle
+ * qui vient de gagner. Je joue l'action qui gagne contre celle-ci.
+ * Dans le dernier cas (où je perds), je joue l'action qui gagne contre celle la plus jouée chez l'adversaire si elle se distingue
+ * sinon
  */
 class RishiPlayer extends Player
 {
@@ -27,14 +35,14 @@ class RishiPlayer extends Player
         $mylastaction = $this->result->getLastChoiceFor($this->mySide);
         $opponentlastaction = $this->result->getLastChoiceFor($this->mySide);
 
-        if ($mylastscore > $opponentlastscore) {
+        if ($mylastscore == $opponentlastscore) {
             if ($mylastaction == 'rock')
                 return parent::paperChoice();
             elseif ($mylastaction == 'paper')
                 return parent::scissorsChoice();
             return parent::rockChoice();
         }
-        elseif ($mylastscore == $opponentlastscore) {
+        elseif ($mylastscore > $opponentlastscore) {
             if ($mylastaction == 'rock')
                 return parent::scissorsChoice();
             elseif ($mylastaction == 'paper')
