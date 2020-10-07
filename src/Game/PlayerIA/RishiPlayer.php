@@ -27,7 +27,6 @@ class RishiPlayer extends Player
         $mylastaction = $this->result->getLastChoiceFor($this->mySide);
         $opponentlastaction = $this->result->getLastChoiceFor($this->mySide);
 
-        //i won
         if ($mylastscore == $opponentlastscore) {
             if ($mylastaction == 'rock')
                 return parent::paperChoice();
@@ -35,7 +34,6 @@ class RishiPlayer extends Player
                 return parent::scissorsChoice();
             return parent::rockChoice();
         }
-        //ex equo
         elseif ($mylastscore > $opponentlastscore) {
             if ($mylastaction == 'rock')
                 return parent::scissorsChoice();
@@ -43,13 +41,19 @@ class RishiPlayer extends Player
                 return parent::rockChoice();
             return $this->paperChoice();
         }
-        //i lost
         else {
-            return $opponentlastaction;
+            $otherstats = $this->result->getStatsFor($this->opponentSide);
+            if ($otherstats['rock'] > $otherstats['paper'] && $otherstats['rock'] > $otherstats['scissors'])
+                return parent::paperChoice();
+            elseif ($otherstats['paper'] > $otherstats['rock'] && $otherstats['paper'] > $otherstats['scissors'])
+                return parent::scissorsChoice();
+            elseif ($otherstats['scissors'] > $otherstats['paper'] && $otherstats['scissors'] > $otherstats['rock'])
+                return parent::rockChoice();
+            elseif ($opponentlastaction == 'scissors')
+                return parent::paperChoice();
+            elseif ($opponentlastaction == 'rock')
+                return parent::scissorsChoice();
+            return parent::rockChoice();
         }
-       // $otherlast = $this->result->getLastChoiceFor($this->opponentSide);
-
-        //$otherstats = $this->result->getStatsFor($this->opponentSide);
-        //print_r($otherstats);
     }
 };
